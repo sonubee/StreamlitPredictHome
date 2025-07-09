@@ -20,7 +20,13 @@ bathrooms  = st.number_input("Full Baths", min_value=0, max_value=10, value=2)
 sqft       = st.number_input("Square Footage", min_value=100, value=1000)
 year_built = st.number_input("Year Built", min_value=1900, max_value=2025, value=2000)
 lot_size   = st.number_input("Lot Size (sqft)", min_value=0, value=5000)
-zipcode    = st.selectbox("Zip Code", options=[95819, 95742, 95628, /*…*/])
+
+# load a tiny CSV just to get the column names (or load from a saved JSON)
+df_cols = pd.read_csv("MLS_Sold_Data_For_Training_Zips_Only.csv", nrows=0)
+zip_cols = [c for c in df_cols.columns if c.startswith("ZipCode_")]
+zipcodes = [int(c.split("_")[1]) for c in zip_cols]
+
+zipcode = st.selectbox("Zip Code", options=zipcodes)
 
 # 4) Encode & scale inputs exactly as in training
 input_df = pd.DataFrame([{
