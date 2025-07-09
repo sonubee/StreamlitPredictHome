@@ -5,7 +5,7 @@ import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
 
 # 1) Load your model
-model = tf.keras.models.load_model('home_price_model.h5')
+model = tf.keras.models.load_model('home_price_model.keras')
 
 # 2) (Re)load your scaler or recreate it — you can pickle it in Colab similarly:
 import pickle
