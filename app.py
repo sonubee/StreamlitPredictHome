@@ -1,12 +1,17 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import tensorflow as tf
 import pickle
+import warnings
 
-# 1) Load your model & scaler
-model = tf.keras.models.load_model('home_price_model.keras')
-with open('scaler.pkl', 'rb') as f:
+from sklearn.exceptions import InconsistentVersionWarning
+
+warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+
+# Then load model & scaler for inference-only:
+model = tf.keras.models.load_model('home_price_model.keras', compile=False)
+
+with open('scaler.pkl','rb') as f:
     scaler = pickle.load(f)
 
 # 2) Sample CSV for defaults & feature discovery
